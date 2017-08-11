@@ -35,7 +35,7 @@ class Account extends \yii\db\ActiveRecord
             [['username', 'password', 'authKey'], 'required'],
             [['personId'], 'integer'],
             [['username', 'password', 'accessToken'], 'string', 'max' => 255],
-            [['authKey'], 'string', 'max' => 25],
+            [['authKey'], 'string', 'max' => 255],
             [['personId'], 'exist', 'skipOnError' => true, 'targetClass' => Person::className(), 'targetAttribute' => ['personId' => 'id']],
         ];
     }
@@ -61,5 +61,17 @@ class Account extends \yii\db\ActiveRecord
     public function getPerson()
     {
         return $this->hasOne(Person::className(), ['id' => 'personId']);
+    }
+
+    public function beforeSave($insert)
+    {
+        if(parent::beforeSave($insert))
+        {
+           $this->password = Yii::$app->security->generatePasswordHash($this->password);
+           return true;
+        } else
+        {
+           return false;
+        }
     }
 }
