@@ -141,10 +141,12 @@ class User extends \app\models\Account implements \yii\web\IdentityInterface
      */
     public function validatePassword($password)
     {
+      Yii::trace('Validating password: '. $password .' for user: ' . $this->username, $category = 'login');
       $hash = $this->password;
       return Yii::$app->getSecurity()->validatePassword($password, $hash);
+      // Failed attempts
       //return $this->password === Yii::$app->security->generatePasswordHash($password);
-        //return $this->password === $password;
+      //return $this->password === $password;
     }
 
 }

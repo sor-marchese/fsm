@@ -7,7 +7,7 @@ $this->title = 'Fidal Servizi Manager';
 <div class="site-index">
 
     <div class="jumbotron">
-        <h1>Soviet Crono</h1>
+        <h1>Fidal Servizi Manager</h1>
 
         <p class="lead">You have successfully created your Yii-powered application.</p>
 

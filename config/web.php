@@ -4,7 +4,7 @@ $params = require(__DIR__ . '/params.php');
 $db = require(__DIR__ . '/db.php');
 
 $config = [
-    'id' => 'basic',
+    'id' => 'fsm',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
@@ -36,6 +36,12 @@ $config = [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
                 ],
+                // My debug log file
+                [
+                    'class' => 'yii\log\FileTarget',
+                    'levels' => ['trace'],
+                    'logFile' => '@app/runtime/logs/debug.log'
+                ],
             ],
         ],
         'db' => $db,
@@ -50,6 +56,10 @@ $config = [
         ],
     ],
     'params' => $params,
+    // set the target language to English
+    'language' => 'en-US',
+    // set the timezone to Europe/Rome
+    'timeZone' => 'Europe/Rome',
 ];
 
 if (YII_ENV_DEV) {
