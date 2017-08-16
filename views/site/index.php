@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'Fidal Servizi Manager';
+$this->title = 'FSM - Index';
 ?>
 <div class="site-index">
 
