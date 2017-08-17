@@ -3,19 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Account;
-use app\models\AccountSearch;
+use app\models\City;
+use app\models\CitySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-use yii\helpers\ArrayHelper;
-use app\models\Person;
 
 /**
- * AccountController implements the CRUD actions for Account model.
+ * CityController implements the CRUD actions for City model.
  */
-class AccountController extends Controller
+class CityController extends Controller
 {
     /**
      * @inheritdoc
@@ -23,17 +20,6 @@ class AccountController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['index', 'update', 'delete'], // 'create' is needed for registration
-                'rules' => [
-                    [
-                        'actions' => ['index', 'update', 'delete'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -44,12 +30,12 @@ class AccountController extends Controller
     }
 
     /**
-     * Lists all Account models.
+     * Lists all City models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new AccountSearch();
+        $searchModel = new CitySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -59,7 +45,7 @@ class AccountController extends Controller
     }
 
     /**
-     * Displays a single Account model.
+     * Displays a single City model.
      * @param integer $id
      * @return mixed
      */
@@ -71,41 +57,25 @@ class AccountController extends Controller
     }
 
     /**
-     * Creates a new Account model.
+     * Creates a new City model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Account();
-        $personName = ['name' => '', 'surname' => ''];
+        $model = new City();
 
-        if ($model->load(Yii::$app->request->post()))
-        {
-            $model->convertToHash();
-
-            //Yii::trace("Checking person: '$this->name' '$this->surname'", $category = 'registration');
-
-
-            $person = Person::findOne([
-                'name' => $personName->name,
-                'surname' => $personName->surname,
-            ]);
-
-            $model->personId = $person->id;
-
-            if (!empty($model->password)  && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->cityId]);
         } else {
             return $this->render('create', [
-                'model' => $model, 'personName' => $personName,
+                'model' => $model,
             ]);
         }
     }
 
     /**
-     * Updates an existing Account model.
+     * Updates an existing City model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -115,7 +85,7 @@ class AccountController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->cityId]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -124,7 +94,7 @@ class AccountController extends Controller
     }
 
     /**
-     * Deletes an existing Account model.
+     * Deletes an existing City model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -137,15 +107,15 @@ class AccountController extends Controller
     }
 
     /**
-     * Finds the Account model based on its primary key value.
+     * Finds the City model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Account the loaded model
+     * @return City the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Account::findOne($id)) !== null) {
+        if (($model = City::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

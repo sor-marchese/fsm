@@ -18,7 +18,7 @@ class CompetenceSearch extends Competence
     public function rules()
     {
         return [
-            [['person', 'role'], 'integer'],
+            [['personId', 'roleId'], 'integer'],
             [['level'], 'safe'],
         ];
     }
@@ -59,8 +59,8 @@ class CompetenceSearch extends Competence
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'person' => $this->person,
-            'role' => $this->role,
+            'personId' => $this->personId,
+            'roleId' => $this->roleId,
         ]);
 
         $query->andFilterWhere(['like', 'level', $this->level]);

@@ -7,12 +7,12 @@ use Yii;
 /**
  * This is the model class for table "competence".
  *
- * @property integer $person
- * @property integer $role
+ * @property integer $personId
+ * @property integer $roleId
  * @property string $level
  *
- * @property Person $person0
- * @property Role $role0
+ * @property Person $person
+ * @property Role $role
  */
 class Competence extends \yii\db\ActiveRecord
 {
@@ -30,11 +30,11 @@ class Competence extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['person', 'role', 'level'], 'required'],
-            [['person', 'role'], 'integer'],
+            [['personId', 'roleId', 'level'], 'required'],
+            [['personId', 'roleId'], 'integer'],
             [['level'], 'string'],
-            [['person'], 'exist', 'skipOnError' => true, 'targetClass' => Person::className(), 'targetAttribute' => ['person' => 'id']],
-            [['role'], 'exist', 'skipOnError' => true, 'targetClass' => Role::className(), 'targetAttribute' => ['role' => 'Id']],
+            [['personId'], 'exist', 'skipOnError' => true, 'targetClass' => Person::className(), 'targetAttribute' => ['personId' => 'personId']],
+            [['roleId'], 'exist', 'skipOnError' => true, 'targetClass' => Role::className(), 'targetAttribute' => ['roleId' => 'roleId']],
         ];
     }
 
@@ -44,8 +44,8 @@ class Competence extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'person' => 'Person',
-            'role' => 'Role',
+            'personId' => 'Person ID',
+            'roleId' => 'Role ID',
             'level' => 'Level',
         ];
     }
@@ -53,16 +53,16 @@ class Competence extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPerson0()
+    public function getPerson()
     {
-        return $this->hasOne(Person::className(), ['id' => 'person']);
+        return $this->hasOne(Person::className(), ['personId' => 'personId']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getRole0()
+    public function getRole()
     {
-        return $this->hasOne(Role::className(), ['Id' => 'role']);
+        return $this->hasOne(Role::className(), ['roleId' => 'roleId']);
     }
 }

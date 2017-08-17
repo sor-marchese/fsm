@@ -5,23 +5,23 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "role".
+ * This is the model class for table "city".
  *
- * @property integer $roleId
+ * @property integer $cityId
  * @property string $name
  *
- * @property Competence[] $competences
+ * @property Event[] $events
+ * @property PersonCity[] $personCities
  * @property Person[] $people
- * @property Slot[] $slots
  */
-class Role extends \yii\db\ActiveRecord
+class City extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'role';
+        return 'city';
     }
 
     /**
@@ -41,7 +41,7 @@ class Role extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'roleId' => 'Role ID',
+            'cityId' => 'City ID',
             'name' => 'Name',
         ];
     }
@@ -49,9 +49,17 @@ class Role extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCompetences()
+    public function getEvents()
     {
-        return $this->hasMany(Competence::className(), ['roleId' => 'roleId']);
+        return $this->hasMany(Event::className(), ['cityId' => 'cityId']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPersonCities()
+    {
+        return $this->hasMany(PersonCity::className(), ['cityId' => 'cityId']);
     }
 
     /**
@@ -59,14 +67,6 @@ class Role extends \yii\db\ActiveRecord
      */
     public function getPeople()
     {
-        return $this->hasMany(Person::className(), ['personId' => 'personId'])->viaTable('competence', ['roleId' => 'roleId']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSlots()
-    {
-        return $this->hasMany(Slot::className(), ['roleId' => 'roleId']);
+        return $this->hasMany(Person::className(), ['personId' => 'personId'])->viaTable('person_city', ['cityId' => 'cityId']);
     }
 }

@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Account;
+use app\models\City;
 
 /**
- * AccountSearch represents the model behind the search form about `app\models\Account`.
+ * CitySearch represents the model behind the search form about `app\models\City`.
  */
-class AccountSearch extends Account
+class CitySearch extends City
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class AccountSearch extends Account
     public function rules()
     {
         return [
-            [['id', 'personId'], 'integer'],
-            [['username', 'email', 'password', 'authKey', 'accessToken'], 'safe'],
+            [['cityId'], 'integer'],
+            [['name'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class AccountSearch extends Account
      */
     public function search($params)
     {
-        $query = Account::find();
+        $query = City::find();
 
         // add conditions that should always apply here
 
@@ -59,15 +59,10 @@ class AccountSearch extends Account
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'personId' => $this->personId,
+            'cityId' => $this->cityId,
         ]);
 
-        $query->andFilterWhere(['like', 'username', $this->username])
-            ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'password', $this->password])
-            ->andFilterWhere(['like', 'authKey', $this->authKey])
-            ->andFilterWhere(['like', 'accessToken', $this->accessToken]);
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

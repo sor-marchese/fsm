@@ -7,17 +7,22 @@ use Yii;
 /**
  * This is the model class for table "person".
  *
- * @property integer $id
+ * @property integer $personId
  * @property string $name
  * @property string $surname
  * @property string $gender
  * @property string $employment
+ * @property string $email
+ * @property string $password
+ * @property string $authKey
+ * @property string $accessToken
  *
- * @property Account[] $accounts
  * @property Assignment[] $assignments
+ * @property Slot[] $slots
  * @property Competence[] $competences
  * @property Role[] $roles
  * @property PersonCity[] $personCities
+ * @property City[] $cities
  * @property PersonUnavailable[] $personUnavailables
  */
 class Person extends \yii\db\ActiveRecord
@@ -36,9 +41,10 @@ class Person extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'surname', 'gender', 'employment'], 'required'],
+            [['name', 'surname', 'gender', 'employment', 'email', 'password'], 'required'],
             [['gender', 'employment'], 'string'],
-            [['name', 'surname'], 'string', 'max' => 42],
+            [['name', 'surname', 'email', 'authKey', 'accessToken'], 'string', 'max' => 255],
+            [['password'], 'string', 'max' => 60],
         ];
     }
 
@@ -48,20 +54,16 @@ class Person extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'personId' => 'Person ID',
             'name' => 'Name',
             'surname' => 'Surname',
             'gender' => 'Gender',
             'employment' => 'Employment',
+            'email' => 'Email',
+            'password' => 'Password',
+            'authKey' => 'Auth Key',
+            'accessToken' => 'Access Token',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAccounts()
-    {
-        return $this->hasMany(Account::className(), ['personId' => 'id']);
     }
 
     /**
@@ -69,7 +71,15 @@ class Person extends \yii\db\ActiveRecord
      */
     public function getAssignments()
     {
-        return $this->hasMany(Assignment::className(), ['person' => 'id']);
+        return $this->hasMany(Assignment::className(), ['personId' => 'personId']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSlots()
+    {
+        return $this->hasMany(Slot::className(), ['slotId' => 'slotId'])->viaTable('assignment', ['personId' => 'personId']);
     }
 
     /**
@@ -77,7 +87,7 @@ class Person extends \yii\db\ActiveRecord
      */
     public function getCompetences()
     {
-        return $this->hasMany(Competence::className(), ['person' => 'id']);
+        return $this->hasMany(Competence::className(), ['personId' => 'personId']);
     }
 
     /**
@@ -85,7 +95,7 @@ class Person extends \yii\db\ActiveRecord
      */
     public function getRoles()
     {
-        return $this->hasMany(Role::className(), ['Id' => 'role'])->viaTable('competence', ['person' => 'id']);
+        return $this->hasMany(Role::className(), ['roleId' => 'roleId'])->viaTable('competence', ['personId' => 'personId']);
     }
 
     /**
@@ -93,7 +103,15 @@ class Person extends \yii\db\ActiveRecord
      */
     public function getPersonCities()
     {
-        return $this->hasMany(PersonCity::className(), ['person' => 'id']);
+        return $this->hasMany(PersonCity::className(), ['personId' => 'personId']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCities()
+    {
+        return $this->hasMany(City::className(), ['cityId' => 'cityId'])->viaTable('person_city', ['personId' => 'personId']);
     }
 
     /**
@@ -101,6 +119,15 @@ class Person extends \yii\db\ActiveRecord
      */
     public function getPersonUnavailables()
     {
-        return $this->hasMany(PersonUnavailable::className(), ['person' => 'id']);
+        return $this->hasMany(PersonUnavailable::className(), ['personId' => 'personId']);
+    }
+
+    public function convertToHash()
+    {
+        Yii::trace("Converting '$this->password' to hash...", $category = 'registration');
+        if (!empty($this->password))
+        {
+              $this->password = Yii::$app->getSecurity()->generatePasswordHash($this->password);
+        }
     }
 }

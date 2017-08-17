@@ -5,9 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Competence */
 
-$this->title = 'Update Competence: ' . $model->person;
+$this->title = 'Update Competence: ' . $model->personId;
 $this->params['breadcrumbs'][] = ['label' => 'Competences', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->person, 'url' => ['view', 'person' => $model->person, 'role' => $model->role]];
+$this->params['breadcrumbs'][] = ['label' => $model->personId, 'url' => ['view', 'personId' => $model->personId, 'roleId' => $model->roleId]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="competence-update">

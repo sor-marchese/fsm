@@ -7,7 +7,7 @@ use yii\db\ActiveRecord;
 use app\models\Account;
 use yii\web\IdentityInterface;
 
-class User extends \app\models\Account implements \yii\web\IdentityInterface
+class User extends \app\models\Person implements \yii\web\IdentityInterface
 {
     // public $id;
     // public $username;
@@ -106,7 +106,7 @@ class User extends \app\models\Account implements \yii\web\IdentityInterface
 
     public static function findByUsername($username)
     {
-        return static::findOne(['username' => $username]);
+        return static::findOne(['email' => $username]);
     }
 
     /**
@@ -114,7 +114,7 @@ class User extends \app\models\Account implements \yii\web\IdentityInterface
      */
     public function getId()
     {
-        return $this->id;
+        return $this->personId;
     }
 
     /**
@@ -141,7 +141,7 @@ class User extends \app\models\Account implements \yii\web\IdentityInterface
      */
     public function validatePassword($password)
     {
-      Yii::trace('Validating password: '. $password .' for user: ' . $this->username, $category = 'login');
+      Yii::trace('Validating password: '. $password .' for user: ' . $this->email, $category = 'login');
       $hash = $this->password;
       return Yii::$app->getSecurity()->validatePassword($password, $hash);
     }

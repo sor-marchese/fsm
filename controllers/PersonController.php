@@ -22,16 +22,16 @@ class PersonController extends Controller
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['index','create', 'update', 'delete'],
-                'rules' => [
-                    [
-                        'actions' => ['index','create', 'update', 'delete'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
+                 'class' => AccessControl::className(),
+                 'only' => [/*'index',/*'create',*/ 'update', 'delete'],
+                 'rules' => [
+                     [
+                         'actions' => [/*'index',/*'create',*/ 'update', 'delete'],
+                         'allow' => true,
+                         'roles' => ['@'],
+                     ],
+                 ],
+             ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -75,10 +75,25 @@ class PersonController extends Controller
      */
     public function actionCreate()
     {
+        // $model = new Person();
+        //
+        // if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        //     return $this->redirect(['view', 'id' => $model->personId]);
+        // } else {
+        //     return $this->render('create', [
+        //         'model' => $model,
+        //     ]);
+        // }
+
         $model = new Person();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()))
+        {
+            $model->convertToHash();
+
+            if (!empty($model->password)  && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->personId]);
+            }
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -97,7 +112,7 @@ class PersonController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->personId]);
         } else {
             return $this->render('update', [
                 'model' => $model,

@@ -15,9 +15,9 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'person') ?>
+    <?= $form->field($model, 'personId') ?>
 
-    <?= $form->field($model, 'role') ?>
+    <?= $form->field($model, 'roleId') ?>
 
     <?= $form->field($model, 'level') ?>
 

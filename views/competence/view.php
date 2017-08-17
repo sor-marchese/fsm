@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Competence */
 
-$this->title = $model->person;
+$this->title = $model->personId;
 $this->params['breadcrumbs'][] = ['label' => 'Competences', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'person' => $model->person, 'role' => $model->role], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'person' => $model->person, 'role' => $model->role], [
+        <?= Html::a('Update', ['update', 'personId' => $model->personId, 'roleId' => $model->roleId], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'personId' => $model->personId, 'roleId' => $model->roleId], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -28,8 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'person',
-            'role',
+            'personId',
+            'roleId',
             'level',
         ],
     ]) ?>

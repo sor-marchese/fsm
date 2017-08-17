@@ -58,14 +58,14 @@ class CompetenceController extends Controller
 
     /**
      * Displays a single Competence model.
-     * @param integer $person
-     * @param integer $role
+     * @param integer $personId
+     * @param integer $roleId
      * @return mixed
      */
-    public function actionView($person, $role)
+    public function actionView($personId, $roleId)
     {
         return $this->render('view', [
-            'model' => $this->findModel($person, $role),
+            'model' => $this->findModel($personId, $roleId),
         ]);
     }
 
@@ -79,7 +79,7 @@ class CompetenceController extends Controller
         $model = new Competence();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'person' => $model->person, 'role' => $model->role]);
+            return $this->redirect(['view', 'personId' => $model->personId, 'roleId' => $model->roleId]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -90,16 +90,16 @@ class CompetenceController extends Controller
     /**
      * Updates an existing Competence model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $person
-     * @param integer $role
+     * @param integer $personId
+     * @param integer $roleId
      * @return mixed
      */
-    public function actionUpdate($person, $role)
+    public function actionUpdate($personId, $roleId)
     {
-        $model = $this->findModel($person, $role);
+        $model = $this->findModel($personId, $roleId);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'person' => $model->person, 'role' => $model->role]);
+            return $this->redirect(['view', 'personId' => $model->personId, 'roleId' => $model->roleId]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -110,13 +110,13 @@ class CompetenceController extends Controller
     /**
      * Deletes an existing Competence model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $person
-     * @param integer $role
+     * @param integer $personId
+     * @param integer $roleId
      * @return mixed
      */
-    public function actionDelete($person, $role)
+    public function actionDelete($personId, $roleId)
     {
-        $this->findModel($person, $role)->delete();
+        $this->findModel($personId, $roleId)->delete();
 
         return $this->redirect(['index']);
     }
@@ -124,14 +124,14 @@ class CompetenceController extends Controller
     /**
      * Finds the Competence model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $person
-     * @param integer $role
+     * @param integer $personId
+     * @param integer $roleId
      * @return Competence the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($person, $role)
+    protected function findModel($personId, $roleId)
     {
-        if (($model = Competence::findOne(['person' => $person, 'role' => $role])) !== null) {
+        if (($model = Competence::findOne(['personId' => $personId, 'roleId' => $roleId])) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

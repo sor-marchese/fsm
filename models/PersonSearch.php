@@ -18,8 +18,8 @@ class PersonSearch extends Person
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['name', 'surname', 'gender', 'employment'], 'safe'],
+            [['personId'], 'integer'],
+            [['name', 'surname', 'gender', 'employment', 'email', 'password', 'authKey', 'accessToken'], 'safe'],
         ];
     }
 
@@ -59,13 +59,17 @@ class PersonSearch extends Person
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+            'personId' => $this->personId,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'surname', $this->surname])
             ->andFilterWhere(['like', 'gender', $this->gender])
-            ->andFilterWhere(['like', 'employment', $this->employment]);
+            ->andFilterWhere(['like', 'employment', $this->employment])
+            ->andFilterWhere(['like', 'email', $this->email])
+            ->andFilterWhere(['like', 'password', $this->password])
+            ->andFilterWhere(['like', 'authKey', $this->authKey])
+            ->andFilterWhere(['like', 'accessToken', $this->accessToken]);
 
         return $dataProvider;
     }

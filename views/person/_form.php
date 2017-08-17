@@ -20,6 +20,14 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'employment')->dropDownList([ 'partita iva' => 'Partita iva', 'voucher/legge sport' => 'Voucher/legge sport', 'società' => 'Società', ], ['prompt' => '']) ?>
 
+    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'authKey')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'accessToken')->textInput(['maxlength' => true]) ?>
+
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
