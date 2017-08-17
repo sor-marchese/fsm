@@ -19,7 +19,7 @@ class AccountSearch extends Account
     {
         return [
             [['id', 'personId'], 'integer'],
-            [['username', 'password', 'authKey', 'accessToken'], 'safe'],
+            [['username', 'email', 'password', 'authKey', 'accessToken'], 'safe'],
         ];
     }
 
@@ -64,6 +64,7 @@ class AccountSearch extends Account
         ]);
 
         $query->andFilterWhere(['like', 'username', $this->username])
+            ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'password', $this->password])
             ->andFilterWhere(['like', 'authKey', $this->authKey])
             ->andFilterWhere(['like', 'accessToken', $this->accessToken]);

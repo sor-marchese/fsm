@@ -6,6 +6,8 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\Account */
 /* @var $form yii\widgets\ActiveForm */
+
+/* <?= $form->field($model, 'personId')->textInput() ?> */
 ?>
 
 <div class="account-form">
@@ -14,13 +16,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'authKey')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'accessToken')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'personId')->textInput() ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'surname')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

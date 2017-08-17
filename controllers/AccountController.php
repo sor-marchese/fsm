@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
+use app\models\Person;
 
 /**
  * AccountController implements the CRUD actions for Account model.
@@ -23,10 +25,10 @@ class AccountController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index','create', 'update', 'delete'],
+                'only' => ['index', 'update', 'delete'], // 'create' is needed for registration
                 'rules' => [
                     [
-                        'actions' => ['index','create', 'update', 'delete'],
+                        'actions' => ['index', 'update', 'delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -76,12 +78,28 @@ class AccountController extends Controller
     public function actionCreate()
     {
         $model = new Account();
+        $personName = ['name' => '', 'surname' => ''];
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()))
+        {
+            $model->convertToHash();
+
+            //Yii::trace("Checking person: '$this->name' '$this->surname'", $category = 'registration');
+
+
+            $person = Person::findOne([
+                'name' => $personName->name,
+                'surname' => $personName->surname,
+            ]);
+
+            $model->personId = $person->id;
+
+            if (!empty($model->password)  && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         } else {
             return $this->render('create', [
-                'model' => $model,
+                'model' => $model, 'personName' => $personName,
             ]);
         }
     }
@@ -133,5 +151,4 @@ class AccountController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-
 }

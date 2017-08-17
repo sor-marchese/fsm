@@ -9,6 +9,7 @@ use Yii;
  *
  * @property integer $id
  * @property string $username
+ * @property string $email
  * @property string $password
  * @property string $authKey
  * @property string $accessToken
@@ -32,10 +33,10 @@ class Account extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'password', 'authKey'], 'required'],
+            [['username', 'email', 'password', 'authKey'], 'required'],
             [['personId'], 'integer'],
-            [['username', 'password', 'accessToken'], 'string', 'max' => 255],
-            [['authKey'], 'string', 'max' => 255],
+            [['username', 'email', 'password', 'authKey', 'accessToken'], 'string', 'max' => 255],
+            ['email', 'email'],
             [['personId'], 'exist', 'skipOnError' => true, 'targetClass' => Person::className(), 'targetAttribute' => ['personId' => 'id']],
         ];
     }
@@ -48,6 +49,7 @@ class Account extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'username' => 'Username',
+            'email' => 'Email',
             'password' => 'Password',
             'authKey' => 'Auth Key',
             'accessToken' => 'Access Token',
@@ -63,15 +65,12 @@ class Account extends \yii\db\ActiveRecord
         return $this->hasOne(Person::className(), ['id' => 'personId']);
     }
 
-    public function beforeSave($insert)
+    public function convertToHash()
     {
-        if(parent::beforeSave($insert))
+        Yii::trace("Converting '$this->password' to hash...", $category = 'registration');
+        if (!empty($this->password))
         {
-           $this->password = Yii::$app->security->generatePasswordHash($this->password);
-           return true;
-        } else
-        {
-           return false;
+              $this->password = Yii::$app->getSecurity()->generatePasswordHash($this->password);
         }
     }
 }
