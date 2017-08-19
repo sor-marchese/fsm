@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\User;
 
 class SiteController extends Controller
 {
@@ -82,7 +83,7 @@ class SiteController extends Controller
 
         $model = new LoginForm(['scenario' => User::SCENARIO_LOGIN]);
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+          return $this->goHome();
         }
         return $this->render('login', [
             'model' => $model,
@@ -100,16 +101,29 @@ class SiteController extends Controller
         //     return $this->goHome();
         // }
 
-        $model = new LoginForm(['scenario' => User::SCENARIO_REGISTER]);
-        if ($model->load(Yii::$app->request->post()) && $model->register()) {
-            return $this->goBack();
-        }
-        return $this->render('registration', [
+        $model = new User(['scenario' => User::SCENARIO_REGISTER]);
+        // if ($model->load(Yii::$app->request->post()) && $model->register()) {
+        //     return $this->goBack();
+        // }
+        if ($model->load(Yii::$app->request->post()))
+        {
+            $model->convertToHash();
+
+            if ($model->save()) {
+                return $this->render('//site\registration-ok', [
+                    'model' => $model,]);
+                    // return $this->render('/message', [
+                    // 'title'  => \Yii::t('user', 'Your account has been created'),
+                    // 'module' => $this->module,
+                // ]);
+            }
+        } else {
+            return $this->render('registration', [
             'model' => $model,
-        ]);
+            ]);
+        }
+
     }
-
-
 
     /**
      * Logout action.

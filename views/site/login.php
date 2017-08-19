@@ -4,6 +4,8 @@
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model app\models\LoginForm */
 
+/*<?= Html::a('Register', ['/person/create'], ['class'=>'btn btn-primary', 'name' => 'register-button']) ?>*/
+
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
@@ -35,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">
                 <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                <?= Html::a('Register', ['/person/create'], ['class'=>'btn btn-primary', 'name' => 'register-button']) ?>
+                <?= Html::a('Register', ['/site/register'], ['class'=>'btn btn-primary', 'name' => 'register-button']) ?>
             </div>
         </div>
 

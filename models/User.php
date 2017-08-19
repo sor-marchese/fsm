@@ -9,71 +9,32 @@ use yii\web\IdentityInterface;
 
 class User extends \app\models\Person implements \yii\web\IdentityInterface
 {
-    // public $id;
-    // public $username;
-    // public $password;
-    // public $authKey;
-    // public $accessToken;
-
-    //
-    // private static $users = [
-    //     '100' => [
-    //         'id' => '100',
-    //         'username' => 'admin',
-    //         'password' => 'admin',
-    //         'authKey' => 'test100key',
-    //         'accessToken' => '100-token',
-    //     ],
-    //     '101' => [
-    //         'id' => '101',
-    //         'username' => 'demo',
-    //         'password' => 'demo',
-    //         'authKey' => 'test101key',
-    //         'accessToken' => '101-token',
-    //     ],
-    // ];
 
 
-    //
-    // /**
-    //  * @inheritdoc
-    //  */
-    // public static function findIdentity($id)
-    // {
-    //     return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
-    // }
-    //
-    // /**
-    //  * @inheritdoc
-    //  */
-    // public static function findIdentityByAccessToken($token, $type = null)
-    // {
-    //     foreach (self::$users as $user) {
-    //         if ($user['accessToken'] === $token) {
-    //             return new static($user);
-    //         }
-    //     }
-    //
-    //     return null;
-    // }
-    //
+    const SCENARIO_LOGIN = 'login';
+    const SCENARIO_REGISTER = 'register';
 
-    // /**
-    //  * Finds user by username
-    //  *
-    //  * @param string $username
-    //  * @return static|null
-    //  */
-    // public static function findByUsername($username)
-    // {
-    //     foreach (self::$users as $user) {
-    //         if (strcasecmp($user['username'], $username) === 0) {
-    //             return new static($user);
-    //         }
-    //     }
-    //
-    //     return null;
-    // }
+    // Needed???
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        $scenarios[self::SCENARIO_LOGIN] = ['email', 'password'];
+        $scenarios[self::SCENARIO_REGISTER] = ['name', 'surname', 'gender', 'employment', 'email', 'password'];
+        return $scenarios;
+    }
+
+    /**
+     * @return array the validation rules.
+     */
+    public function rules()
+    {
+        return [
+            // person data, email and password are all required in "register" scenario
+            [['name', 'surname', 'gender', 'employment', 'email', 'password'], 'required', 'on' => self::SCENARIO_REGISTER],
+            // email must be a valid email address
+            ['email' , 'email'],
+        ];
+    }
 
     /**
      * Finds an identity by the given ID.
@@ -107,7 +68,7 @@ class User extends \app\models\Person implements \yii\web\IdentityInterface
     // {
     //     return static::findOne(['username' => $username]);
     // }
--
+
     /**
     * Finds user by email
     *
@@ -157,3 +118,70 @@ class User extends \app\models\Person implements \yii\web\IdentityInterface
     }
 
 }
+
+// OLD CODE
+// public $id;
+// public $username;
+// public $password;
+// public $authKey;
+// public $accessToken;
+
+//
+// private static $users = [
+//     '100' => [
+//         'id' => '100',
+//         'username' => 'admin',
+//         'password' => 'admin',
+//         'authKey' => 'test100key',
+//         'accessToken' => '100-token',
+//     ],
+//     '101' => [
+//         'id' => '101',
+//         'username' => 'demo',
+//         'password' => 'demo',
+//         'authKey' => 'test101key',
+//         'accessToken' => '101-token',
+//     ],
+// ];
+
+
+//
+// /**
+//  * @inheritdoc
+//  */
+// public static function findIdentity($id)
+// {
+//     return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+// }
+//
+// /**
+//  * @inheritdoc
+//  */
+// public static function findIdentityByAccessToken($token, $type = null)
+// {
+//     foreach (self::$users as $user) {
+//         if ($user['accessToken'] === $token) {
+//             return new static($user);
+//         }
+//     }
+//
+//     return null;
+// }
+//
+
+// /**
+//  * Finds user by username
+//  *
+//  * @param string $username
+//  * @return static|null
+//  */
+// public static function findByUsername($username)
+// {
+//     foreach (self::$users as $user) {
+//         if (strcasecmp($user['username'], $username) === 0) {
+//             return new static($user);
+//         }
+//     }
+//
+//     return null;
+// }

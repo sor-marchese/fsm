@@ -23,10 +23,10 @@ class PersonController extends Controller
         return [
             'access' => [
                  'class' => AccessControl::className(),
-                 'only' => [/*'index',/*'create',*/ 'update', 'delete'],
+                 'only' => ['index','create', 'update', 'delete'],
                  'rules' => [
                      [
-                         'actions' => [/*'index',/*'create',*/ 'update', 'delete'],
+                         'actions' => ['index','create', 'update', 'delete'],
                          'allow' => true,
                          'roles' => ['@'],
                      ],

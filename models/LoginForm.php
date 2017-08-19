@@ -35,35 +35,35 @@ class LoginForm extends Model
     /**
      * @return array the validation rules.
      */
-    // public function rules()
-    // {
-    //     return [
-    //         // username and password are both required
-    //         [['email', 'password'], 'required'],
-    //         // rememberMe must be a boolean value
-    //         ['rememberMe', 'boolean'],
-    //         // email must be a valid email address
-    //         ['email' , 'email'],
-    //         // password is validated by validatePassword()
-    //         ['password', 'validatePassword'],
-    //     ];
-    // }
-
     public function rules()
-{
-    return [
-        // person data, email and password are all required in "register" scenario
-        [['name', 'surname', 'gender', 'employment', 'email', 'password'], 'required', 'on' => self::SCENARIO_REGISTER],
-        // email and password are required in "login" scenario
-        [['email', 'password'], 'required', 'on' => self::SCENARIO_LOGIN],
-        // rememberMe must be a boolean value
-        ['rememberMe', 'boolean', 'on' => self::SCENARIO_LOGIN],
-        // password is validated by validatePassword()
-        ['password', 'validatePassword', 'on' => self::SCENARIO_LOGIN],
-        // email must be a valid email address
-        ['email' , 'email'],
-    ];
-}
+    {
+        return [
+            // email and password are both required
+            [['email', 'password'], 'required'],
+            // rememberMe must be a boolean value
+            ['rememberMe', 'boolean'],
+            // email must be a valid email address
+            ['email' , 'email'],
+            // password is validated by validatePassword()
+            ['password', 'validatePassword'],
+        ];
+    }
+
+//     public function rules()
+// {
+//     return [
+//         // person data, email and password are all required in "register" scenario
+//         [['name', 'surname', 'gender', 'employment', 'email', 'password'], 'required', 'on' => self::SCENARIO_REGISTER],
+//         // email and password are required in "login" scenario
+//         [['email', 'password'], 'required', 'on' => self::SCENARIO_LOGIN],
+//         // rememberMe must be a boolean value
+//         ['rememberMe', 'boolean', 'on' => self::SCENARIO_LOGIN],
+//         // password is validated by validatePassword()
+//         ['password', 'validatePassword', 'on' => self::SCENARIO_LOGIN],
+//         // email must be a valid email address
+//         ['email' , 'email'],
+//     ];
+// }
 
     /**
      * Validates the password.
