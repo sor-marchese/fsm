@@ -31,13 +31,6 @@ class User extends \app\models\Person implements \yii\web\IdentityInterface
     //         'authKey' => 'test101key',
     //         'accessToken' => '101-token',
     //     ],
-    //     '102' => [
-    //       'id' => '102',
-    //       'username' => 'Mona',
-    //       'password' => 'diocan',
-    //       'authKey' => 'test102key',
-    //       'accessToken' => '102-token',
-    //     ]
     // ];
 
 
@@ -65,6 +58,23 @@ class User extends \app\models\Person implements \yii\web\IdentityInterface
     // }
     //
 
+    // /**
+    //  * Finds user by username
+    //  *
+    //  * @param string $username
+    //  * @return static|null
+    //  */
+    // public static function findByUsername($username)
+    // {
+    //     foreach (self::$users as $user) {
+    //         if (strcasecmp($user['username'], $username) === 0) {
+    //             return new static($user);
+    //         }
+    //     }
+    //
+    //     return null;
+    // }
+
     /**
      * Finds an identity by the given ID.
      *
@@ -87,26 +97,26 @@ class User extends \app\models\Person implements \yii\web\IdentityInterface
         return static::findOne(['access_token' => $token]);
     }
 
-    // /**
-    //  * Finds user by username
-    //  *
-    //  * @param string $username
-    //  * @return static|null
-    //  */
+      /**
+      * Finds user by username
+      *
+      * @param string $username
+      * @return static|null
+      */
     // public static function findByUsername($username)
     // {
-    //     foreach (self::$users as $user) {
-    //         if (strcasecmp($user['username'], $username) === 0) {
-    //             return new static($user);
-    //         }
-    //     }
-    //
-    //     return null;
+    //     return static::findOne(['username' => $username]);
     // }
-
-    public static function findByUsername($username)
+-
+    /**
+    * Finds user by email
+    *
+    * @param string $email
+    * @return static|null
+    */
+    public static function findByEmail($email)
     {
-        return static::findOne(['email' => $username]);
+        return static::findOne(['email' => $email]);
     }
 
     /**

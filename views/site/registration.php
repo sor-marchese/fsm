@@ -7,16 +7,16 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Login';
+$this->title = 'Registration';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-login">
+<div class="site-registration">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login <strong>or</strong> click Register to create an account</p>
+    <p>Please fill out the following fields to create a new account</p>
 
     <?php $form = ActiveForm::begin([
-        'id' => 'login-form',
+        'id' => 'registration-form',
         'layout' => 'horizontal',
         'fieldConfig' => [
             'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
@@ -24,25 +24,27 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
-        <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
+        <?= $form->field($model, 'email')->textInput() ?>
 
         <?= $form->field($model, 'password')->passwordInput() ?>
 
-        <?= $form->field($model, 'rememberMe')->checkbox([
-            'template' => "<div class=\"col-lg-offset-1 col-lg-3\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
-        ]) ?>
+        <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
+
+        <?= $form->field($model, 'surname')->textInput() ?>
+
+        <?= $form->field($model, 'gender')->dropDownList([ 'Male' => 'Male', 'Female' => 'Female', ], ['prompt' => '']) ?>
+
+        <?= $form->field($model, 'employment')->dropDownList([ 'partita iva' => 'Partita iva', 'voucher/legge sport' => 'Voucher/legge sport', 'società' => 'Società', ], ['prompt' => '']) ?>
 
         <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">
-                <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                <?= Html::a('Register', ['/person/create'], ['class'=>'btn btn-primary', 'name' => 'register-button']) ?>
+                <?= Html::submitButton('Register', ['class' => 'btn btn-primary', 'name' => 'register-button']) ?>
             </div>
         </div>
 
     <?php ActiveForm::end(); ?>
 
     <div class="col-lg-offset-1" style="color:#999;">
-        You may login with <strong>admin/admin</strong>.<br>
         To modify the username/password, please check out the code <code>app\models\User::$users</code>.
     </div>
 </div>

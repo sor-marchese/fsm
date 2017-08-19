@@ -13,27 +13,57 @@ use yii\base\Model;
  */
 class LoginForm extends Model
 {
-    public $username;
+    //public $username;
+    public $email;
     public $password;
     public $rememberMe = true;
 
     private $_user = false;
 
 
+    const SCENARIO_LOGIN = 'login';
+    const SCENARIO_REGISTER = 'register';
+
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        $scenarios[self::SCENARIO_LOGIN] = ['email', 'password'];
+        $scenarios[self::SCENARIO_REGISTER] = ['name', 'surname', 'gender', 'employment', 'email', 'password'];
+        return $scenarios;
+    }
+
     /**
      * @return array the validation rules.
      */
+    // public function rules()
+    // {
+    //     return [
+    //         // username and password are both required
+    //         [['email', 'password'], 'required'],
+    //         // rememberMe must be a boolean value
+    //         ['rememberMe', 'boolean'],
+    //         // email must be a valid email address
+    //         ['email' , 'email'],
+    //         // password is validated by validatePassword()
+    //         ['password', 'validatePassword'],
+    //     ];
+    // }
+
     public function rules()
-    {
-        return [
-            // username and password are both required
-            [['username', 'password'], 'required'],
-            // rememberMe must be a boolean value
-            ['rememberMe', 'boolean'],
-            // password is validated by validatePassword()
-            ['password', 'validatePassword'],
-        ];
-    }
+{
+    return [
+        // person data, email and password are all required in "register" scenario
+        [['name', 'surname', 'gender', 'employment', 'email', 'password'], 'required', 'on' => self::SCENARIO_REGISTER],
+        // email and password are required in "login" scenario
+        [['email', 'password'], 'required', 'on' => self::SCENARIO_LOGIN],
+        // rememberMe must be a boolean value
+        ['rememberMe', 'boolean', 'on' => self::SCENARIO_LOGIN],
+        // password is validated by validatePassword()
+        ['password', 'validatePassword', 'on' => self::SCENARIO_LOGIN],
+        // email must be a valid email address
+        ['email' , 'email'],
+    ];
+}
 
     /**
      * Validates the password.
@@ -49,7 +79,6 @@ class LoginForm extends Model
 
             if (!$user || !$user->validatePassword($this->password)) {
                 $this->addError($attribute, 'Incorrect username or password.');
-                // Yii::trace('validation failed!' , $category = 'login');
             }
         }
     }
@@ -67,6 +96,18 @@ class LoginForm extends Model
     }
 
     /**
+     * Registers a new user.
+     * @return bool whether the user is registered successfully
+     */
+    public function register()
+    {
+        if ($this->validate()) {
+            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
+        }
+        return false;
+    }
+
+    /**
      * Finds user by [[username]]
      *
      * @return User|null
@@ -74,7 +115,8 @@ class LoginForm extends Model
     public function getUser()
     {
         if ($this->_user === false) {
-            $this->_user = User::findByUsername($this->username);
+            //$this->_user = User::findByUsername($this->username);
+            $this->_user = User::findByEmail($this->email);
         }
         return $this->_user;
     }

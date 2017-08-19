@@ -80,7 +80,7 @@ class SiteController extends Controller
             return $this->goHome();
         }
 
-        $model = new LoginForm();
+        $model = new LoginForm(['scenario' => User::SCENARIO_LOGIN]);
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         }
@@ -88,6 +88,28 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
+    /**
+     * Register action.
+     *
+     * @return Response|string
+     */
+    public function actionRegister()
+    {
+        // if (!Yii::$app->user->isGuest) {
+        //     return $this->goHome();
+        // }
+
+        $model = new LoginForm(['scenario' => User::SCENARIO_REGISTER]);
+        if ($model->load(Yii::$app->request->post()) && $model->register()) {
+            return $this->goBack();
+        }
+        return $this->render('registration', [
+            'model' => $model,
+        ]);
+    }
+
+
 
     /**
      * Logout action.
