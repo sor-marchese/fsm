@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 
 /**
  * CompetenceController implements the CRUD actions for Competence model.
@@ -83,6 +84,34 @@ class CompetenceController extends Controller
         } else {
             return $this->render('create', [
                 'model' => $model,
+            ]);
+        }
+    }
+
+    /**
+     * Creates a new Competence for (not the CRUD default one).
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionAddCompetence()
+    {
+        $model = new Competence;
+
+        $people = $model->getPeople();
+        $listPeople = ArrayHelper::map($people,'personId','name');
+
+        $roles = $model->getRoles();
+        $listRoles = ArrayHelper::map($roles,'roleId','name');
+
+        // IMPORTANTE: check che non stia aggiungendo una competenza gia esistente!!!
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        return $this->redirect(['view', 'personId' => $model->personId, 'roleId' => $model->roleId]);
+        } else {
+            return $this->render('add', [
+                'model' => $model,
+                'listPeople' => $listPeople,
+                'listRoles' => $listRoles,
             ]);
         }
     }

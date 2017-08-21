@@ -112,10 +112,6 @@ class SiteController extends Controller
             if ($model->save()) {
                 return $this->render('//site\registration-ok', [
                     'model' => $model,]);
-                    // return $this->render('/message', [
-                    // 'title'  => \Yii::t('user', 'Your account has been created'),
-                    // 'module' => $this->module,
-                // ]);
             }
         } else {
             return $this->render('registration', [

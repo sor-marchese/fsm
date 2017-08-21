@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use app\models\Person;
+use app\models\Role;
 
 /**
  * This is the model class for table "competence".
@@ -61,8 +63,24 @@ class Competence extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getPeople()
+    {
+        return Person::find()->all();
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getRole()
     {
         return $this->hasOne(Role::className(), ['roleId' => 'roleId']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRoles()
+    {
+        return Role::find()->all();
     }
 }
