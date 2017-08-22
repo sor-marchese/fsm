@@ -89,7 +89,7 @@ class CompetenceController extends Controller
     }
 
     /**
-     * Creates a new Competence for (not the CRUD default one).
+     * Creates a new Competence with selection of person and role (not the CRUD default one).
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
