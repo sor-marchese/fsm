@@ -104,9 +104,19 @@ class CompetenceController extends Controller
         $listRoles = ArrayHelper::map($roles,'roleId','name');
 
         // IMPORTANTE: check che non stia aggiungendo una competenza gia esistente!!!
+        //if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()))
+        {
+            try {
+                $existing = $this->findModel($model->personId, $model->roleId);
+            } catch (NotFoundHttpException $e) {
+                Yii::trace('NOT FOUND EXISTING MODEL! ALL IS GOOD!', $category = 'add-competence');
+            }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-        return $this->redirect(['view', 'personId' => $model->personId, 'roleId' => $model->roleId]);
+            if ($model->save())
+            {
+                return $this->redirect(['view', 'personId' => $model->personId, 'roleId' => $model->roleId]);
+            }
         } else {
             return $this->render('add', [
                 'model' => $model,
