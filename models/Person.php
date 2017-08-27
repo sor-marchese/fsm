@@ -1,6 +1,8 @@
 <?php
 
 namespace app\models;
+use yii\data\ActiveDataProvider;
+use yii\db\Query;
 
 use Yii;
 
@@ -122,6 +124,9 @@ class Person extends \yii\db\ActiveRecord
         return $this->hasMany(PersonUnavailable::className(), ['personId' => 'personId']);
     }
 
+    /*
+    * Converts the given password to hash for safe storage in the db
+    */
     public function convertToHash()
     {
         Yii::trace("Converting '$this->password' to hash...", $category = 'registration');
@@ -129,5 +134,28 @@ class Person extends \yii\db\ActiveRecord
         {
               $this->password = Yii::$app->getSecurity()->generatePasswordHash($this->password);
         }
+    }
+
+    /**
+     * @return \yii\data\ActiveDataProvider
+     */
+    public function getPeopleForView()
+    {
+        $query = Person::find()->all();
+
+        $provider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'surname' => SORT_ASC,
+                ]
+            ],
+        ]);
+
+        //$ids = $provider->getKeys();
+        return $provider;
     }
 }

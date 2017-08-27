@@ -33,6 +33,8 @@ class User extends \app\models\Person implements \yii\web\IdentityInterface
             [['name', 'surname', 'gender', 'employment', 'email', 'password'], 'required', 'on' => self::SCENARIO_REGISTER],
             // email must be a valid email address
             ['email' , 'email'],
+            // password must be between 4-14 characters
+            ['password' , 'string', 'min' => 4, 'max' => 14],
         ];
     }
 

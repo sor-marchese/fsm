@@ -13,7 +13,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-registration">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to create a new account</p>
+    <p>Please fill out the following fields to create a new account.<br>
+    Password must be between 4 to 14 characters long.</p>
 
     <?php $form = ActiveForm::begin([
         'id' => 'registration-form',

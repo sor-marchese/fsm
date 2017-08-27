@@ -134,6 +134,16 @@ class PersonController extends Controller
     }
 
     /**
+     * Displays a list of all Person objects.
+     * @return mixed
+     */
+    public function actionList()
+    {
+        $dataProvider = Person::getPeopleForView();
+        return $this->render('list', ['listDataProvider' => $dataProvider]);
+    }
+
+    /**
      * Finds the Person model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
