@@ -141,7 +141,7 @@ class Person extends \yii\db\ActiveRecord
      */
     public function getPeopleForView()
     {
-        $query = Person::find()->all();
+        $query = Person::find();
 
         $provider = new ActiveDataProvider([
             'query' => $query,
