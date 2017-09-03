@@ -30,7 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             // Simple columns defined by the data contained in $dataProvider.
             // Data from the model's column will be used.
-            'personId',
             'name',
             'surname',
             'gender',

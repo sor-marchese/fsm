@@ -9,6 +9,9 @@ use Yii;
  *
  * @property integer $cityId
  * @property string $name
+ * @property string $province
+ * @property string $region
+ * @property integer $cap
  *
  * @property Event[] $events
  * @property PersonCity[] $personCities
@@ -30,8 +33,11 @@ class City extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['name', 'province', 'region', 'cap'], 'required'],
+            [['cap'], 'integer'],
             [['name'], 'string', 'max' => 255],
+            [['province'], 'string', 'max' => 2],
+            [['region'], 'string', 'max' => 3],
         ];
     }
 
@@ -43,6 +49,9 @@ class City extends \yii\db\ActiveRecord
         return [
             'cityId' => 'City ID',
             'name' => 'Name',
+            'province' => 'Province',
+            'region' => 'Region',
+            'cap' => 'Cap',
         ];
     }
 
