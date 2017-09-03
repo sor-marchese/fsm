@@ -10,6 +10,9 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\User;
+use app\models\City;
+use yii\helpers\ArrayHelper;
+
 
 class SiteController extends Controller
 {
@@ -102,6 +105,11 @@ class SiteController extends Controller
         // }
 
         $model = new User(['scenario' => User::SCENARIO_REGISTER]);
+        // $provinces = City::getProvinces();
+        // $regions = City::getRegions();
+        // $regionsArr=ArrayHelper::getColumn($regions,'region');
+        // $selRegion = new City;
+        //d($regionsArr);
         // if ($model->load(Yii::$app->request->post()) && $model->register()) {
         //     return $this->goBack();
         // }
@@ -116,6 +124,8 @@ class SiteController extends Controller
         } else {
             return $this->render('registration', [
             'model' => $model,
+            // 'regions' => $regionsArr,
+            // 'selRegion' => $selRegion,
             ]);
         }
 

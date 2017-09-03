@@ -78,4 +78,50 @@ class City extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Person::className(), ['personId' => 'personId'])->viaTable('person_city', ['cityId' => 'cityId']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRegions()
+    {
+        return City::find()
+            ->select('region')
+            ->distinct()
+            ->orderBy('region')
+            ->all();
+    }
+
+    // /**
+    //  * @return \yii\db\ActiveQuery
+    //  */
+    // public function getCitiesForRegion($region)
+    // {
+    //     return City::find()
+    //         ->where(['region' => $region])
+    //         ->orderBy('name')
+    //         ->all();
+    // }
+    //
+    // /**
+    //  * @return \yii\db\ActiveQuery
+    //  */
+    // public function getProvinces()
+    // {
+    //     return City::find()
+    //         ->select('province')
+    //         ->distinct()
+    //         ->orderBy('province')
+    //         ->all();
+    // }
+    //
+    // /**
+    //  * @return \yii\db\ActiveQuery
+    //  */
+    // public function getCitiesForProvince($province)
+    // {
+    //     return City::find()
+    //         ->where(['province' => $province])
+    //         ->orderBy('name')
+    //         ->all();
+    // }
 }
