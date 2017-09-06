@@ -34,8 +34,10 @@ class Event extends \yii\db\ActiveRecord
         return [
             [['name', 'start_date', 'end_date'], 'required'],
             [['cityId'], 'integer'],
-            [['start_date', 'end_date'], 'safe'],
-            [['start_date', 'end_date'], 'date'],
+            ['start_date', 'default', 'value' => null],
+            ['end_date', 'default', 'value' => null],
+            ['start_date', 'date', 'timestampAttribute' => 'start_date'],
+            ['end_date', 'date', 'timestampAttribute' => 'end_date'],
             ['end_date','compare','compareAttribute'=>'start_date','operator'=>'>'],
             [['name'], 'string', 'max' => 255],
             [['cityId'], 'exist', 'skipOnError' => true, 'targetClass' => City::className(), 'targetAttribute' => ['cityId' => 'cityId']],
