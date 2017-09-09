@@ -484,7 +484,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2016-01-10T17:30:48+00:00"
+            "time": "2016-01-10 17:30:48"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -3359,16 +3359,16 @@
         },
         {
             "name": "yiisoft/yii2-debug",
-            "version": "2.0.10",
+            "version": "2.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "ad1d1780d59dc3417b4a32bab8cadac4908359eb"
+                "reference": "372fbf0d47303b7d68275d6720935e5116915418"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/ad1d1780d59dc3417b4a32bab8cadac4908359eb",
-                "reference": "ad1d1780d59dc3417b4a32bab8cadac4908359eb",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/372fbf0d47303b7d68275d6720935e5116915418",
+                "reference": "372fbf0d47303b7d68275d6720935e5116915418",
                 "shasum": ""
             },
             "require": {
@@ -3402,7 +3402,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2017-09-04T09:42:28+00:00"
+            "time": "2017-09-05T23:21:05+00:00"
         },
         {
             "name": "yiisoft/yii2-faker",
