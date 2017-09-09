@@ -56,10 +56,19 @@ $config = [
             ],
 			*/
         ],
+        // My formats with Italian values
+        'formatter' => [
+            'dateFormat' => 'dd.MM.yyyy',
+            'decimalSeparator' => ',',
+            'thousandSeparator' => ' ',
+            'currencyCode' => 'EUR',
+       ],
     ],
     'params' => $params,
     // set the target language to English
     'language' => 'en-US',
+    // set the target language to English
+    'sourceLanguage' => 'en-US',
     // set the timezone to Europe/Rome
     'timeZone' => 'Europe/Rome',
 ];

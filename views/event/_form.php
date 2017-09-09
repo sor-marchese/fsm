@@ -24,22 +24,22 @@ use yii\jui\DatePicker;
         'model' => $model,
         'options' => ['class' => 'form-control'],
         'attribute' => 'start_date',
-        'clientOptions' => [
-                            'periodfrom' => '1980-01-01',
-                            'autoclose' => true,
-                            'dateFormat' => 'yyyy-MM-dd',
-                        ],
+        // 'clientOptions' => [
+        //                     'periodfrom' => '1980-01-01',
+        //                     'autoclose' => true,
+        //                     'dateFormat' => 'yyyy-MM-dd',
+        //                 ],
         ]) ?>
 
     <?= $form->field($model, 'end_date')->widget(\yii\jui\DatePicker::classname(), [
         'model' => $model,
         'options' => ['class' => 'form-control'],
         'attribute' => 'end_date',
-        'clientOptions' => [
-                            'periodfrom' => '1980-01-01',
-                            'autoclose' => true,
-                            'dateFormat' => '@',
-                        ],
+        // 'clientOptions' => [
+        //                     'periodfrom' => '1980-01-01',
+        //                     'autoclose' => true,
+        //                     'dateFormat' => '@',
+        //                 ],
         ]) ?>
 
     <div class="form-group">
