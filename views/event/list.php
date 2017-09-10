@@ -4,17 +4,6 @@ use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\grid\GridView;
 
-// GridView::widget([
-//     'dataProvider' => $listDataProvider,
-// ]);
-
-// ListView::widget([
-//     'dataProvider' => $listDataProvider,
-// ]);
-
-/* @var $this yii\web\View */
-/* @var $listDataProvider yii\data\ActiveDataProvider */
-
 $this->title = 'Event List';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
