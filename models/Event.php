@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\data\ActiveDataProvider;
+use yii\db\Query;
 
 /**
  * This is the model class for table "event".
@@ -68,5 +70,28 @@ class Event extends \yii\db\ActiveRecord
     public function getEventDays()
     {
         return $this->hasMany(EventDay::className(), ['eventId' => 'eventId']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEventsForView()
+    {
+        $query = Event::find()->innerJoin('city', 'event.cityId = city.cityId');
+
+        $provider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'name' => SORT_ASC,
+                ]
+            ],
+        ]);
+
+        //$ids = $provider->getKeys();
+        return $provider;
     }
 }

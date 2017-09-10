@@ -114,6 +114,17 @@ class EventController extends Controller
     }
 
     /**
+     * Displays all Events in a list.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionList()
+    {
+        $dataProvider = Event::getEventsForView();
+        return $this->render('list', ['listDataProvider' => $dataProvider]);
+    }
+
+    /**
      * Finds the Event model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
