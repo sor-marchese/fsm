@@ -4,6 +4,8 @@ require_once(__DIR__.'/functions.php');
 
 $params = require(__DIR__ . '/params.php');
 $db = require(__DIR__ . '/db.php');
+// configuration for DateControl module
+$dateControl = require(__DIR__ . '/dateControl.php');
 
 $config = [
     'id' => 'fsm',
@@ -63,6 +65,9 @@ $config = [
             'thousandSeparator' => ' ',
             'currencyCode' => 'EUR',
        ],
+    ],
+    'modules' => [
+        'datecontrol' => $dateControl,
     ],
     'params' => $params,
     // set the target language to English

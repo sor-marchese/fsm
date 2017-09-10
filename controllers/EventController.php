@@ -67,8 +67,9 @@ class EventController extends Controller
 
         if ($model->load(Yii::$app->request->post()))
         {
-            $model->start_date = Yii::$app->formatter->asDate($model->start_date, 'yyyy-MM-dd HH:mm:ss'); // 2014-10-06 15:22:34
-            $model->end_date = Yii::$app->formatter->asDate($model->end_date, 'yyyy-MM-dd HH:mm:ss'); // 2014-10-06 15:22:34
+            // $model->start_date = Yii::$app->formatter->asDate($model->start_date, 'yyyy-MM-dd HH:mm:ss'); // 2014-10-06 15:22:34
+            // $model->end_date = Yii::$app->formatter->asDate($model->end_date, 'yyyy-MM-dd HH:mm:ss'); // 2014-10-06 15:22:34
+            d($model->start_date);
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->eventId]);
             }

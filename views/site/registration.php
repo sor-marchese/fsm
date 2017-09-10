@@ -7,34 +7,6 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
-// BLOCCONE COMMENTATO PER CITTA
-// use kartik\depdrop\DepDrop;
-// use yii\helpers\Url;
-// $form->field($selRegion, 'region')->dropDownList($regions,
-//     [   'prompt' => 'Select region',
-//         'onchange' => '$.post("index.php?r=city/lists&region=' . '"+$(this).text(),
-//         function(data)
-//         {
-//             $("select#region").html(data);
-//         });'
-//     ])
-//$dataPost=ArrayHelper::map(\app\Models\City::find()->asArray()->all(), 'cityId', 'name');
-// $form->field($selRegion, 'name')->dropDownList(
-//     ArrayHelper::map(\app\Models\City::find()->asArray()->all(), 'cityId', 'name'),
-// ['prompt' => 'Select city',
-// ])
-// With DepDrop plugin
-//  $form->field($selRegion, 'region')->dropDownList($regions, ['id'=>'cat-id']);
-//
- //
-//  $form->field($selRegion, 'name')->widget(DepDrop::classname(), [
-//      'pluginOptions'=>[
-//          'depends'=>['cat-id'],
-//          'placeholder' => 'Select...',
-//          'url' => Url::to(['/city/subcat'])
-//      ]
-//  ]);
-//
 
 $this->title = 'Registration';
 $this->params['breadcrumbs'][] = $this->title;

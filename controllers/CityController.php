@@ -106,50 +106,6 @@ class CityController extends Controller
         return $this->redirect(['index']);
     }
 
-    // CITTA DEMMERDA
-    // public function actionLists($region)
-    // {
-    //     $countCities  = \app\models\City::find()
-    //             ->where(['region' => $region])
-    //             ->count();
-    //
-    //     $cities = \app\models\City::find()
-    //             ->where(['region' => $region])
-    //             ->orderBy('name')
-    //             ->all();
-    //
-    //     if($countCities > 0)
-    //     {
-    //         foreach($cities as $city){
-    //             echo "<option value='".$city->cityId."'>".$city->name."</option>";
-    //         }
-    //     }
-    //     else{
-    //         echo "<option>-</option>";
-    //     }
-    // }
-    //
-    // public function actionSubcat() {
-    //     $out = [];
-    //     if (isset($_POST['depdrop_parents'])) {
-    //         $parents = $_POST['depdrop_parents'];
-    //         if ($parents != null) {
-    //             $cat_id = $parents[0];
-    //
-    //             $out = self::getSubCatList($cat_id);
-    //             // the getSubCatList function will query the database based on the
-    //             // cat_id and return an array like below:
-    //             // [
-    //             //    ['id'=>'<sub-cat-id-1>', 'name'=>'<sub-cat-name1>'],
-    //             //    ['id'=>'<sub-cat_id_2>', 'name'=>'<sub-cat-name2>']
-    //             // ]
-    //             echo Json::encode(['output'=>$out, 'selected'=>'']);
-    //             return;
-    //         }
-    //     }
-    //     echo Json::encode(['output'=>'', 'selected'=>'']);
-    // }
-
     /**
      * Finds the City model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
