@@ -73,6 +73,27 @@ class Event extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return Array of days to be saved in the DB
+     */
+    public function getSingleDays()
+    {
+        $startDate = new \DateTime($this->start_date);
+        $endDate = new \DateTime($this->end_date);
+        $days = array();
+
+        $interval = new \DateInterval('P1D');
+        // because period ignores the last day otherwise
+        $endDate = $endDate->modify('+1 day');
+        $dateRange = new \DatePeriod($startDate, $interval, $endDate);
+        foreach ($dateRange as $day)
+        {
+            $days[] = $day->format('Y-m-d');
+        }
+        // dd($days); // DEBUG
+        return $days;
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getEventsForView()

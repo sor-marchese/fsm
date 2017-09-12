@@ -34,6 +34,7 @@ class EventDay extends \yii\db\ActiveRecord
             [['eventId', 'date', 'activity'], 'required'],
             [['eventId'], 'integer'],
             [['date'], 'safe'],
+            [['date'], 'date'],
             [['activity'], 'string'],
             [['eventId'], 'exist', 'skipOnError' => true, 'targetClass' => Event::className(), 'targetAttribute' => ['eventId' => 'eventId']],
         ];
