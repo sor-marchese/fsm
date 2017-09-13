@@ -20,6 +20,10 @@ use yii\db\Query;
  */
 class Event extends \yii\db\ActiveRecord
 {
+    // not in the db but needed
+    public $start_date;
+    public $end_date;
+
     /**
      * @inheritdoc
      */
@@ -87,7 +91,8 @@ class Event extends \yii\db\ActiveRecord
         $dateRange = new \DatePeriod($startDate, $interval, $endDate);
         foreach ($dateRange as $day)
         {
-            $days[] = $day->format('Y-m-d');
+            // $days[] = $day->format('Y-m-d');
+            $days[] = $day->format('d.m.Y');
         }
         // dd($days); // DEBUG
         return $days;

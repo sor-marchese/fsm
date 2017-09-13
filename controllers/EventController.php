@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Event;
+use app\models\EventDay;
 use app\models\EventSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -64,14 +65,40 @@ class EventController extends Controller
     public function actionCreate()
     {
         $model = new Event();
+        $days = array(); // DELLA GIUSTA CLASSE???
+        $eventDay = new EventDay();
 
         if ($model->load(Yii::$app->request->post()))
         {
             // $model->start_date = Yii::$app->formatter->asDate($model->start_date, 'yyyy-MM-dd HH:mm:ss'); // 2014-10-06 15:22:34
             // $model->end_date = Yii::$app->formatter->asDate($model->end_date, 'yyyy-MM-dd HH:mm:ss'); // 2014-10-06 15:22:34
-            if ($model->save()) {
-                // $model->getSingleDays(); // DEBUG
+            $daysString = $model->getSingleDays();
+            $isValid = $model->validate();
+            // false to validateInput parameter because already validated
+            $model->save(false);
+            $id = $model->getPrimaryKey();
+;
+
+            foreach ($daysString as $dayStr) {
+                $eventDay->eventId = $id;
+                $eventDay->date = $dayStr;
+                $eventDay->activity = 'Undefined';
+                $isValid = $eventDay->validate() && $isValid;
+                $days[] = $eventDay;
+                // d($eventDay); // DEBUG
+            }
+            // d($days); // DEBUG
+            if ($isValid)
+            {
+                // dd($isValid); // DEBUG
+                foreach ($days as $eventDay) {
+                    $eventDay->save(false);
+                }
                 return $this->redirect(['view', 'id' => $model->eventId]);
+            }
+            else {
+                d('sto cazzo di isValid è falso!');
+                dd($days[0]);
             }
         }
         else {
