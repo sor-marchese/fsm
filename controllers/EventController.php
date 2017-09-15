@@ -52,6 +52,7 @@ class EventController extends Controller
      */
     public function actionView($id)
     {
+        Event::getEventDates($id); // DEBUG
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -66,7 +67,7 @@ class EventController extends Controller
     {
         $model = new Event();
         $days = array(); // DELLA GIUSTA CLASSE???
-        $eventDay = new EventDay();
+        // $eventDay = new EventDay();
 
         if ($model->load(Yii::$app->request->post()))
         {
@@ -80,20 +81,23 @@ class EventController extends Controller
 ;
 
             foreach ($daysString as $dayStr) {
+                $eventDay = new EventDay();
                 $eventDay->eventId = $id;
                 $eventDay->date = $dayStr;
                 $eventDay->activity = 'Undefined';
                 $isValid = $eventDay->validate() && $isValid;
                 $days[] = $eventDay;
-                // d($eventDay); // DEBUG
+                // d('dayStr: '.$dayStr); // DEBUG
+                // d('eventDays: '.count($days)); // DEBUG
             }
             // d($days); // DEBUG
             if ($isValid)
             {
-                // dd($isValid); // DEBUG
                 foreach ($days as $eventDay) {
                     $eventDay->save(false);
+                    // d('date: '.$eventDay->date); // DEBUG
                 }
+                // dd('isValid TRUE!'); // DEBUG
                 return $this->redirect(['view', 'id' => $model->eventId]);
             }
             else {

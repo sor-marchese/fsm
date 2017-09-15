@@ -31,8 +31,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'eventId',
             'name',
             'cityId',
-            'start_date',
-            'end_date',
         ],
     ]) ?>
 

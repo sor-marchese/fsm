@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\db\Query;
+use app\models\EventDay;
 
 /**
  * This is the model class for table "event".
@@ -92,8 +93,21 @@ class Event extends \yii\db\ActiveRecord
         foreach ($dateRange as $day)
         {
             // $days[] = $day->format('Y-m-d');
-            $days[] = $day->format('d.m.Y');
+            $days[] = $day->format('Y-m-d');
         }
+        // dd($days); // DEBUG
+        return $days;
+    }
+
+    /**
+     * @return Array of start_date and end_date for current Event
+     */
+    public function getEventDates($eventId)
+    {
+        $eventDays = EventDay::find()->innerJoin('event', 'event_day.eventId = event.eventId')->orderBy(['date'=>SORT_ASC])->all();
+        $start = reset($eventDays)->date;
+        $end = end($eventDays)->date;
+        $days = array('startDate' => $start, 'endDate' => $end);
         // dd($days); // DEBUG
         return $days;
     }
