@@ -21,9 +21,11 @@ use app\models\EventDay;
  */
 class Event extends \yii\db\ActiveRecord
 {
-    // not in the db but needed
+    // not in the db but needed for DATAPROVIDER!!!
     public $start_date;
     public $end_date;
+    public $city;
+    public $region;
 
     /**
      * @inheritdoc
@@ -117,20 +119,24 @@ class Event extends \yii\db\ActiveRecord
      */
     public function getEventsForView()
     {
-        $query = Event::find()->innerJoin('city', 'event.cityId = city.cityId');
+        // $query = Event::find()->innerJoin('city', 'event.cityId = city.cityId');
+        $query = Event::find()->select(['event.eventId', 'event.name', 'city.name AS city', 'city.region AS region',
+            'MIN(event_day.date) AS start_date', 'MAX(event_day.date) AS end_date']
+            )->innerJoin('city', 'event.cityId = city.cityId'
+            )->innerJoin('event_day', 'event.eventId = event_day.eventId');
 
         $provider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
                 'pageSize' => 10,
             ],
-            'sort' => [
-                'defaultOrder' => [
-                    'name' => SORT_ASC,
-                ]
-            ],
+            // 'sort' => [
+            //     'defaultOrder' => [
+            //         'name' => SORT_ASC,
+            //     ]
+            // ],
         ]);
-
+        // dd($provider); // DEBUG
         //$ids = $provider->getKeys();
         return $provider;
     }

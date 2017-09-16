@@ -52,7 +52,7 @@ class EventController extends Controller
      */
     public function actionView($id)
     {
-        Event::getEventDates($id); // DEBUG
+        // Event::getEventDates($id); // DEBUG
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -101,8 +101,8 @@ class EventController extends Controller
                 return $this->redirect(['view', 'id' => $model->eventId]);
             }
             else {
-                d('sto cazzo di isValid è falso!');
-                dd($days[0]);
+                // d(isValid è falso!');
+                // dd($days[0]);
             }
         }
         else {

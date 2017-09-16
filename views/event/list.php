@@ -19,8 +19,8 @@ $this->params['breadcrumbs'][] = $this->title;
             // Simple columns defined by the data contained in $dataProvider.
             // Data from the model's column will be used.
             'name',
-            'city.name',
-            'city.region',
+            'city',
+            'region',
             'start_date',
             'end_date',
         ]
