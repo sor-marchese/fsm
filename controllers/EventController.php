@@ -9,6 +9,7 @@ use app\models\EventSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper; // DEBUG
 
 /**
  * EventController implements the CRUD actions for Event model.
@@ -78,7 +79,6 @@ class EventController extends Controller
             // false to validateInput parameter because already validated
             $model->save(false);
             $id = $model->getPrimaryKey();
-;
 
             foreach ($daysString as $dayStr) {
                 $eventDay = new EventDay();
@@ -106,8 +106,48 @@ class EventController extends Controller
             }
         }
         else {
+            // dd(\app\models\City::getMolise()); // DEBUG
             return $this->render('create', [
                 'model' => $model,
+            ]);
+        }
+    }
+
+    public function actionAdd()
+    {
+        $model = new Event();
+        $days = array(); // DELLA GIUSTA CLASSE???
+
+        if ($model->load(Yii::$app->request->post()))
+        {
+
+            $daysString = $model->getSingleDays();
+            $isValid = $model->validate();
+            // false to validateInput parameter because already validated
+            $model->save(false);
+            $id = $model->getPrimaryKey();
+
+            foreach ($daysString as $dayStr) {
+                $eventDay = new EventDay();
+                $eventDay->eventId = $id;
+                $eventDay->date = $dayStr;
+                $eventDay->activity = 'Undefined';
+                $isValid = $eventDay->validate() && $isValid;
+                $days[] = $eventDay;
+            }
+            if ($isValid)
+            {
+                foreach ($days as $eventDay) {
+                    $eventDay->save(false);
+                }
+                return $this->redirect(['view', 'id' => $model->eventId]);
+            }
+        }
+        else {
+            $map = ArrayHelper::map(\app\models\City::getMolise(), 'cityId', 'name');
+            // dd(\app\models\City::getMolise()); // DEBUG
+            return $this->render('add', [
+                'model' => $model, 'cities' => $map,
             ]);
         }
     }

@@ -115,7 +115,7 @@ class Event extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return \yii\data\ActiveDataProvider
      */
     public function getEventsForView()
     {
@@ -130,11 +130,11 @@ class Event extends \yii\db\ActiveRecord
             'pagination' => [
                 'pageSize' => 10,
             ],
-            // 'sort' => [
-            //     'defaultOrder' => [
-            //         'name' => SORT_ASC,
-            //     ]
-            // ],
+            'sort' => [
+                'defaultOrder' => [
+                    'name' => SORT_ASC,
+                ]
+            ],
         ]);
         // dd($provider); // DEBUG
         //$ids = $provider->getKeys();

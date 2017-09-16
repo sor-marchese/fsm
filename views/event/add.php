@@ -12,17 +12,13 @@ use yii\helpers\ArrayHelper;
 
 ?>
 
-<div class="event-form">
+<div class="event-add-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'cityId')->textInput()
-    // $form->field($model, 'cityId')->dropDownList($cities)
-    //$form->field($model, 'cityId')->textInput()
-    //ArrayHelper::map(\app\models\City::getMolise(), 'cityId', 'name')
-        ?>
+    <?= $form->field($model, 'cityId')->dropDownList($cities) ?>
 
     <?= $form->field($model, 'start_date')->widget(DateControl::classname(), [
     'type'=>DateControl::FORMAT_DATE,
@@ -30,13 +26,7 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'end_date')->widget(DateControl::classname(), [
     'type'=>DateControl::FORMAT_DATE,
-        ])
-    // $form->field($model, 'end_date')->widget(\yii\jui\DatePicker::classname(), [
-    //     'model' => $model,
-    //     'options' => ['class' => 'form-control'],
-    //     'attribute' => 'end_date',
-    //     ])
-        ?>
+        ]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

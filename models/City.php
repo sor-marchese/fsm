@@ -90,4 +90,15 @@ class City extends \yii\db\ActiveRecord
             ->orderBy('region')
             ->all();
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMolise()
+    {
+        return City::find()
+            ->where(['region' => 'MOL'])
+            ->orderBy('name')
+            ->all();
+    }
 }

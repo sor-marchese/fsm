@@ -6,7 +6,6 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-use yii\helpers\ArrayHelper;
 
 $this->title = 'Registration';
 $this->params['breadcrumbs'][] = $this->title;
